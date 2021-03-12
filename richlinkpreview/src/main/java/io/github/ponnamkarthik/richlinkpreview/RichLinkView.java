@@ -164,7 +164,7 @@ public class RichLinkView extends RelativeLayout {
             public void onData(MetaData metaData) {
                 meta = metaData;
                 if (!meta.getTitle().isEmpty() || !meta.getTitle().equals("")) {
-                    viewListener.onSuccess(true);
+                    if (viewListener != null) viewListener.onSuccess(true);
                 }
 
                 initView();
@@ -172,7 +172,7 @@ public class RichLinkView extends RelativeLayout {
 
             @Override
             public void onError(Exception e) {
-                viewListener.onError(e);
+                if (viewListener != null) viewListener.onError(e);
             }
         });
         richPreview.getPreview(url);
