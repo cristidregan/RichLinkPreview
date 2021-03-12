@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 /**
  * Created by ponna on 16-01-2018.
@@ -64,11 +64,11 @@ public class RichLinkViewTelegram extends RelativeLayout {
 
     public void initView() {
 
-        if(findLinearLayoutChild() != null) {
+        if (findLinearLayoutChild() != null) {
             this.view = findLinearLayoutChild();
-        } else  {
+        } else {
             this.view = this;
-            inflate(context, R.layout.telegram_link_layout,this);
+            inflate(context, R.layout.telegram_link_layout, this);
         }
 
         linearLayout = (LinearLayout) findViewById(R.id.rich_link_card);
@@ -80,30 +80,30 @@ public class RichLinkViewTelegram extends RelativeLayout {
         textViewOriginalUrl = (TextView) findViewById(R.id.rich_link_original_url);
 
         textViewOriginalUrl.setText(main_url);
-        removeUnderlines((Spannable)textViewOriginalUrl.getText());
+        removeUnderlines((Spannable) textViewOriginalUrl.getText());
 
-        if(meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
+        if (meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
             imageView.setVisibility(GONE);
         } else {
             imageView.setVisibility(VISIBLE);
-            Picasso.get()
+            Glide.with(context)
                     .load(meta.getImageurl())
                     .into(imageView);
         }
 
-        if(meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
+        if (meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
             textViewTitle.setVisibility(GONE);
         } else {
             textViewTitle.setVisibility(VISIBLE);
             textViewTitle.setText(meta.getTitle());
         }
-        if(meta.getUrl().isEmpty() || meta.getUrl().equals("")) {
+        if (meta.getUrl().isEmpty() || meta.getUrl().equals("")) {
             textViewUrl.setVisibility(GONE);
         } else {
             textViewUrl.setVisibility(VISIBLE);
             textViewUrl.setText(meta.getUrl());
         }
-        if(meta.getDescription().isEmpty() || meta.getDescription().equals("")) {
+        if (meta.getDescription().isEmpty() || meta.getDescription().equals("")) {
             textViewDesp.setVisibility(GONE);
         } else {
             textViewDesp.setVisibility(VISIBLE);
@@ -114,10 +114,10 @@ public class RichLinkViewTelegram extends RelativeLayout {
         linearLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isDefaultClick) {
+                if (isDefaultClick) {
                     richLinkClicked();
                 } else {
-                    if(richLinkListener != null) {
+                    if (richLinkListener != null) {
                         richLinkListener.onClicked(view, meta);
                     } else {
                         richLinkClicked();
@@ -165,7 +165,7 @@ public class RichLinkViewTelegram extends RelativeLayout {
             public void onData(MetaData metaData) {
                 meta = metaData;
 
-                if(meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
+                if (meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
                     viewListener.onSuccess(true);
                 }
 
@@ -183,7 +183,7 @@ public class RichLinkViewTelegram extends RelativeLayout {
     private static void removeUnderlines(Spannable p_Text) {
         URLSpan[] spans = p_Text.getSpans(0, p_Text.length(), URLSpan.class);
 
-        for(URLSpan span:spans) {
+        for (URLSpan span : spans) {
             int start = p_Text.getSpanStart(span);
             int end = p_Text.getSpanEnd(span);
             p_Text.removeSpan(span);

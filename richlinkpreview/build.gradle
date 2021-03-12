@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 
-
 ext {
     bintrayRepo = 'RichLinkPreview'
     bintrayName = 'RichLinkPreview'
@@ -14,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/PonnamKarthik/RichLink-Preview'
     gitUrl = 'https://github.com/PonnamKarthik/RichLink-Preview.git'
 
-    libraryVersion = '1.0.9'
+    libraryVersion = '1.1.0'
 
     developerId = 'KarthikPonnam'
     developerName = 'Karthik Ponnam'
@@ -55,7 +54,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation 'org.jsoup:jsoup:1.11.3'
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    // Image loading
+    implementation "com.github.bumptech.glide:glide:4.11.0"
 }
 
 apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'

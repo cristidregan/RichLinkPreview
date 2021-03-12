@@ -6,14 +6,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+
 
 /**
  * Created by ponna on 16-01-2018.
@@ -66,11 +66,11 @@ public class RichLinkView extends RelativeLayout {
 
 
     public void initView() {
-        if(findLinearLayoutChild() != null) {
+        if (findLinearLayoutChild() != null) {
             this.view = findLinearLayoutChild();
-        } else  {
+        } else {
             this.view = this;
-            inflate(context, R.layout.link_layout,this);
+            inflate(context, R.layout.link_layout, this);
         }
 
         linearLayout = (LinearLayout) findViewById(R.id.rich_link_card);
@@ -80,28 +80,28 @@ public class RichLinkView extends RelativeLayout {
         textViewUrl = (TextView) findViewById(R.id.rich_link_url);
 
 
-        if(meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
+        if (meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
             imageView.setVisibility(GONE);
         } else {
             imageView.setVisibility(VISIBLE);
-            Picasso.get()
+            Glide.with(context)
                     .load(meta.getImageurl())
                     .into(imageView);
         }
 
-        if(meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
+        if (meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
             textViewTitle.setVisibility(GONE);
         } else {
             textViewTitle.setVisibility(VISIBLE);
             textViewTitle.setText(meta.getTitle());
         }
-        if(meta.getUrl().isEmpty() || meta.getUrl().equals("")) {
+        if (meta.getUrl().isEmpty() || meta.getUrl().equals("")) {
             textViewUrl.setVisibility(GONE);
         } else {
             textViewUrl.setVisibility(VISIBLE);
             textViewUrl.setText(meta.getUrl());
         }
-        if(meta.getDescription().isEmpty() || meta.getDescription().equals("")) {
+        if (meta.getDescription().isEmpty() || meta.getDescription().equals("")) {
             textViewDesp.setVisibility(GONE);
         } else {
             textViewDesp.setVisibility(VISIBLE);
@@ -112,10 +112,10 @@ public class RichLinkView extends RelativeLayout {
         linearLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isDefaultClick) {
+                if (isDefaultClick) {
                     richLinkClicked();
                 } else {
-                    if(richLinkListener != null) {
+                    if (richLinkListener != null) {
                         richLinkListener.onClicked(view, meta);
                     } else {
                         richLinkClicked();
@@ -163,7 +163,7 @@ public class RichLinkView extends RelativeLayout {
             @Override
             public void onData(MetaData metaData) {
                 meta = metaData;
-                if(!meta.getTitle().isEmpty() || !meta.getTitle().equals("")) {
+                if (!meta.getTitle().isEmpty() || !meta.getTitle().equals("")) {
                     viewListener.onSuccess(true);
                 }
 
