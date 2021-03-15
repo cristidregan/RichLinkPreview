@@ -68,9 +68,9 @@ public class RichLinkView extends RelativeLayout {
         super.onFinishInflate();
     }
 
-
     public void initView() {
         this.view = this;
+        inflate(context, R.layout.link_layout, this);
         linearLayout = findViewById(R.id.rich_link_card);
         imageView = findViewById(R.id.rich_link_image);
         textViewTitle = findViewById(R.id.rich_link_title);
