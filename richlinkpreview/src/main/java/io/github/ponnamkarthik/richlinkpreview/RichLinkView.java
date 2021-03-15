@@ -70,13 +70,7 @@ public class RichLinkView extends RelativeLayout {
 
 
     public void initView() {
-        if (findLinearLayoutChild() != null) {
-            this.view = findLinearLayoutChild();
-        } else {
-            this.view = this;
-            inflate(context, R.layout.link_layout, this);
-        }
-
+        this.view = this;
         linearLayout = findViewById(R.id.rich_link_card);
         imageView = findViewById(R.id.rich_link_image);
         textViewTitle = findViewById(R.id.rich_link_title);
