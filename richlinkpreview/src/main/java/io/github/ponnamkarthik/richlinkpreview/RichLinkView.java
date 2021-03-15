@@ -41,22 +41,26 @@ public class RichLinkView extends RelativeLayout {
     public RichLinkView(Context context) {
         super(context);
         this.context = context;
+        initView();
     }
 
     public RichLinkView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
+        initView();
     }
 
     public RichLinkView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
+        initView();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public RichLinkView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         this.context = context;
+        initView();
     }
 
     @Override
@@ -73,20 +77,19 @@ public class RichLinkView extends RelativeLayout {
             inflate(context, R.layout.link_layout, this);
         }
 
-        linearLayout = (LinearLayout) findViewById(R.id.rich_link_card);
-        imageView = (ImageView) findViewById(R.id.rich_link_image);
-        textViewTitle = (TextView) findViewById(R.id.rich_link_title);
-        textViewDesp = (TextView) findViewById(R.id.rich_link_desp);
-        textViewUrl = (TextView) findViewById(R.id.rich_link_url);
+        linearLayout = findViewById(R.id.rich_link_card);
+        imageView = findViewById(R.id.rich_link_image);
+        textViewTitle = findViewById(R.id.rich_link_title);
+        textViewDesp = findViewById(R.id.rich_link_desp);
+        textViewUrl = findViewById(R.id.rich_link_url);
+    }
 
-
+    private void setData() {
         if (meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
             imageView.setVisibility(GONE);
         } else {
             imageView.setVisibility(VISIBLE);
-            Glide.with(context)
-                    .load(meta.getImageurl())
-                    .into(imageView);
+            Glide.with(context).load(meta.getImageurl()).into(imageView);
         }
 
         if (meta.getTitle().isEmpty() || meta.getTitle().equals("")) {
@@ -101,13 +104,6 @@ public class RichLinkView extends RelativeLayout {
             textViewUrl.setVisibility(VISIBLE);
             textViewUrl.setText(meta.getUrl());
         }
-        if (meta.getDescription().isEmpty() || meta.getDescription().equals("")) {
-            textViewDesp.setVisibility(GONE);
-        } else {
-            textViewDesp.setVisibility(VISIBLE);
-            textViewDesp.setText(meta.getDescription());
-        }
-
 
         linearLayout.setOnClickListener(new OnClickListener() {
             @Override
@@ -123,9 +119,7 @@ public class RichLinkView extends RelativeLayout {
                 }
             }
         });
-
     }
-
 
     private void richLinkClicked() {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(main_url));
@@ -150,7 +144,7 @@ public class RichLinkView extends RelativeLayout {
 
     public void setLinkFromMeta(MetaData metaData) {
         meta = metaData;
-        initView();
+        setData();
     }
 
     public MetaData getMetaData() {
@@ -167,7 +161,7 @@ public class RichLinkView extends RelativeLayout {
                     if (viewListener != null) viewListener.onSuccess(true);
                 }
 
-                initView();
+                setData();
             }
 
             @Override
