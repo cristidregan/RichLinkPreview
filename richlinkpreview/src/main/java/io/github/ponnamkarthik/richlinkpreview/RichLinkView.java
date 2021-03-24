@@ -78,6 +78,13 @@ public class RichLinkView extends RelativeLayout {
         textViewUrl = findViewById(R.id.rich_link_url);
     }
 
+    private void clearData() {
+        imageView.setVisibility(GONE);
+        textViewTitle.setVisibility(GONE);
+        textViewUrl.setVisibility(GONE);
+        textViewDesp.setVisibility(GONE);
+    }
+
     private void setData() {
         if (meta.getImageurl().equals("") || meta.getImageurl().isEmpty()) {
             imageView.setVisibility(GONE);
@@ -97,6 +104,13 @@ public class RichLinkView extends RelativeLayout {
         } else {
             textViewUrl.setVisibility(VISIBLE);
             textViewUrl.setText(meta.getUrl());
+        }
+
+        if (meta.getDescription().isEmpty() || meta.getDescription().equals("")) {
+            textViewDesp.setVisibility(GONE);
+        } else {
+            textViewDesp.setVisibility(VISIBLE);
+            textViewDesp.setText(meta.getDescription());
         }
 
         linearLayout.setOnClickListener(new OnClickListener() {
@@ -146,6 +160,7 @@ public class RichLinkView extends RelativeLayout {
     }
 
     public void setLink(String url, final ViewListener viewListener) {
+        clearData();
         main_url = url;
         RichPreview richPreview = new RichPreview(new ResponseListener() {
             @Override
