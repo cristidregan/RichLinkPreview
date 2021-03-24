@@ -79,10 +79,10 @@ public class RichLinkView extends RelativeLayout {
     }
 
     private void clearData() {
-        imageView.setVisibility(GONE);
-        textViewTitle.setVisibility(GONE);
-        textViewUrl.setVisibility(GONE);
-        textViewDesp.setVisibility(GONE);
+        imageView.setVisibility(INVISIBLE);
+        textViewTitle.setVisibility(INVISIBLE);
+        textViewUrl.setVisibility(INVISIBLE);
+        textViewDesp.setVisibility(INVISIBLE);
     }
 
     private void setData() {
